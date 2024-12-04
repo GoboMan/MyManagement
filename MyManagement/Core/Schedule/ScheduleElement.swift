@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ScheduleElement: View {
-    @State var 
+    // schedule
+    @State var schedule: Schedule
     var body: some View {
         VStack(spacing: 15) {
             //アイコン、カテゴリー名、丸い編集アイコンを表示
@@ -16,7 +17,7 @@ struct ScheduleElement: View {
                 HStack {
                     Image(systemName: "figure.run")
                         .frame(width: 25, height: 25)
-                        .background(Color(.orange))
+                        .background(.orange)
                         .cornerRadius(20)
                         .foregroundColor(.white)
                     
@@ -74,7 +75,7 @@ struct ScheduleElement: View {
                     HStack() {
                         Image(systemName: "circle")
                             .font(.system(size: 20))
-                            .foregroundColor(Color.gray.opacity(0.5))
+                            .foregroundColor(.gray.opacity(0.5))
                         Text("chest press 80kg × 10")
                             .font(.system(size: 14))
                         
