@@ -6,46 +6,38 @@
 //
 import SwiftUI
 
-struct CurrentStreak: View
-{
-    var imageColor: Color
-    var caption: String
+struct CurrentStreak: View {
     var streak: Int
     
-    var body: some View
-    {
-        VStack(alignment: .leading)
-        {
-            HStack
-            {
-                Text(caption)
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("current")
                     .caption(size: 16)
                 
                 Spacer()
                 
                 Image(systemName: "flame.fill")
                     .padding(5)
-                    .background(imageColor.opacity(0.2))
-                    .foregroundStyle(imageColor)
+                    .background(.red.opacity(0.2))
+                    .foregroundStyle(.red)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
             
             Spacer()
             
-            HStack
-            {
+            HStack {
                 Text("\(streak)")
                     .font(.title2)
                     .bold()
                 Text("days")
                     .caption(size: 16)
             }
-            
         }
         .miniBox()
     }
 }
 
 #Preview {
-    CurrentStreak(imageColor: .red, caption: "current", streak: 60)
+    CurrentStreak(streak: 60)
 }
