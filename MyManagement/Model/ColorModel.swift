@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct Color: Codable {
+struct IconColor: Codable, Identifiable {
     var color_id: Int
     var name: String
     var hex_code: String
+    
+    var id: Int {
+        return color_id
+    }
     
     init(color_id: Int, name: String, hex_code: String) {
         self.color_id = color_id
