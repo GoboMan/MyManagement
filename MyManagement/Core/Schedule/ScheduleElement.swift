@@ -53,6 +53,7 @@ struct ScheduleElement: View {
                     
                     Spacer()
                     
+                    // あとでロジックは考える
                     Text("in 1hr 15min")
                         .font(.caption)
                         .foregroundColor(.blue)
@@ -70,9 +71,7 @@ struct ScheduleElement: View {
                     Spacer()
                 }
                 
-                ForEach(schedule.todos) { todo in
-                    TodoItem(todo: todo)
-                }
+                TodoList(todos: schedule.todos)
             }
             .cornerRadius(10)
             .padding(8)
