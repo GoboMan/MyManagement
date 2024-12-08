@@ -13,10 +13,12 @@ struct SubGoalElement: View {
     var body: some View {
         HStack {
             Text(name)
+                .font(.system(size: 16))
             Spacer()
             Text("\(achivementPercentage)%")
                 .foregroundStyle(.blue)
         }
+        .padding(.vertical, 5)
     }
 }
 

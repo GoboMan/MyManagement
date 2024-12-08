@@ -13,8 +13,8 @@ struct GoalElement: View {
         VStack {
             HStack {
                 HStack {
-                    CustomLabel(label: "12/31, 2024")
-                    CustomLabel(label: "Pick up the pace")
+                    CustomLabel(label: goal.due_date.format("MM/dd, yyyy"), color:.gray)
+                    CustomLabel(label: "Pick up the pace", color: .yellow)
                     Spacer()
                     Image(systemName: "ellipsis.circle.fill")
                         .resizable()
@@ -24,25 +24,38 @@ struct GoalElement: View {
             }
             
             HStack {
-                Text("Release iOS app")
+                Text(goal.name)
+                    .font(.system(size: 20))
+                    .bold()
+                    .padding(.vertical, 8)
                 Spacer()
             }
             
             HStack {
-                Text("32 days left")
+                HStack {
+                    Text("32") // 残り日付の計算ができるようにする
+                        .font(.system(size: 18))
+                        .bold()
+                    Text("days left")
+                        .caption(size: 12)
+                    Spacer()
+                }
                 Spacer()
-                Text("18%")
+                Text("\(goal.calcAveragePercentage())%")
             }
             
             Divider()
             
             HStack {
-                CustomLabel(label: "elements")
+                CustomLabel(label: "elements", color: .gray)
                 Spacer()
             }
                         
             SubGoalList(subGoals: goal.subGoals ?? [])
         }
+        .padding()
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
 
@@ -71,6 +84,5 @@ struct GoalElement: View {
         ],
         due_date: date
     )
-    
     GoalElement(goal: goal)
 }

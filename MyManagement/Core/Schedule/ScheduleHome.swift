@@ -19,6 +19,7 @@ struct ScheduleHome: View {
         }
         .padding()
         .scrollIndicators(.hidden)
+        .gradientBackground()
     }
 }
 

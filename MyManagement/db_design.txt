@@ -176,8 +176,6 @@ theme
     enabled,                bool,                           # 適用フラグ
 }
 
-
-
 json形式（ただのメモ）
 {
     "schedule_id": 1,

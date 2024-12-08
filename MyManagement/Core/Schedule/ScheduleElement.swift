@@ -21,15 +21,27 @@ struct ScheduleElement: View {
                         .cornerRadius(20)
                         .foregroundColor(.white)
                     
-                    CustomLabel(label: schedule.category.name)
+                    CustomLabel(label: schedule.category.name, color: .gray)
                 }
                 
                 Spacer()
                 
-                Image(systemName: "ellipsis.circle.fill")
-                    .resizable()
-                    .frame(width: 26, height: 26)
-                    .foregroundColor(.gray.opacity(0.3))
+                VStack(alignment: .trailing) {
+                    Text("\(schedule.start_at.formatToHourAndMinute()) - \(schedule.end_at.formatToHourAndMinute())")
+                        .font(.callout)
+                        .bold()
+                    
+                    // あとでロジックは考える
+                    Text("in 1hr 15min")
+                        .font(.caption)
+                        .foregroundStyle(.blue)
+                }
+                
+                
+//                Image(systemName: "ellipsis.circle.fill")
+//                    .resizable()
+//                    .frame(width: 26, height: 26)
+//                    .foregroundStyle(.gray.opacity(0.3))
             }
             
             //スケジュール名、時刻、夢名、開始までの時間の表示部分
@@ -38,12 +50,10 @@ struct ScheduleElement: View {
                     Text(schedule.name)
                         .font(.title3)
                         .bold()
+                        .lineLimit(1) // テキストを1行に制限
+                        .minimumScaleFactor(0.4) // 最小フォントサイズを元の50%まで縮小
                     
                     Spacer()
-                    
-                    Text("\(schedule.start_at.formatToHourAndMinute()) - \(schedule.end_at.formatToHourAndMinute())")
-                        .font(.callout)
-                        .bold()
                 }
                 
                 
@@ -52,11 +62,6 @@ struct ScheduleElement: View {
                         .font(.caption)
                     
                     Spacer()
-                    
-                    // あとでロジックは考える
-                    Text("in 1hr 15min")
-                        .font(.caption)
-                        .foregroundColor(.blue)
                 }
             }
             
@@ -66,16 +71,17 @@ struct ScheduleElement: View {
             VStack {
                 HStack {
                     Image(systemName: "list.bullet")
-                    CustomLabel(label: "Todos")
+                    CustomLabel(label: "Todos", color: .gray)
                     
                     Spacer()
                 }
                 
                 TodoList(todos: schedule.todos)
             }
-            .cornerRadius(10)
-            .padding(8)
         }
+        .padding()
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
     }
 }
 
