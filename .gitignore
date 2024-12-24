@@ -1,0 +1,6 @@
+# Docker関連
+*.env
+docker-compose.yml
+
+# MySQL関連
+mysql-data/

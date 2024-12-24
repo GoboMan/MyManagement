@@ -6,22 +6,31 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct SubGoal: Codable, Identifiable {
+struct SubGoal: Identifiable {
     var subGoal_id: Int
     var name: String
-    var achievementPercentage: Int
-    var subGoalTask: [SubGoalTask]?
-
+    var subGoalTasks: [SubGoalTask]?
     var id: Int {
         return subGoal_id
     }
     
-    init(subGoal_id: Int, name: String, achievementPercentage: Int, subGoalTask:[SubGoalTask]? = nil) {
+    init(subGoal_id: Int, name: String, subGoalTasks:[SubGoalTask]? = nil) {
         self.subGoal_id = subGoal_id
-        self.achievementPercentage = achievementPercentage
         self.name = name
-        self.subGoalTask = subGoalTask
-
+        self.subGoalTasks = subGoalTasks
     }
+
+    func achievementPercentage() -> Double {
+        guard let subGoalTasks = subGoalTasks, !subGoalTasks.isEmpty else {
+            return 0.0
+        }
+        let numTasks = subGoalTasks.count
+        
+        //  完了したタスクをフィルタリング
+        let numDoneTasks = subGoalTasks.filter { $0.isComplete }.count
+        return (Double(numDoneTasks) / Double(numTasks)) * 100
+    }
+
 }

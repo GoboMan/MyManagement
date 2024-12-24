@@ -69,17 +69,34 @@ struct GoalElement: View {
             SubGoal(
                 subGoal_id: 1,
                 name: "Complete design of UI",
-                achievementPercentage: 54
+                subGoalTasks: [
+                    SubGoalTask(
+                        task_id: 1,
+                        name: "design of UI",
+                        isComplete: false,
+                        required_time: 7200
+                    ),
+                    SubGoalTask(
+                        task_id: 2,
+                        name: "design of UI",
+                        isComplete: false,
+                        required_time: 7200
+                    ),
+                    SubGoalTask(
+                        task_id: 3,
+                        name: "design of UI",
+                        isComplete: false,
+                        required_time: 7200
+                    )
+                ]
             ),
             SubGoal(
                 subGoal_id: 2,
-                name: "Coding",
-                achievementPercentage: 80
+                name: "Coding"
             ),
             SubGoal(
                 subGoal_id: 3,
-                name: "Test",
-                achievementPercentage: 90
+                name: "Test"
             )
         ],
         due_date: date

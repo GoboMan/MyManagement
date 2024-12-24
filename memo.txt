@@ -1,0 +1,42 @@
+◾️dockerfileとdocker-compose.ymlについて
+# dockerfile -> イメージを定義するもの(dockerfileがbuildされてimageが作成される)
+# docker-compose.yml -> 複数のサービス（コンテナ）を連携させて管理・起動する
+# dockerfileとdocker-compose.ymlは両方が必要
+
+
+◾️docker-compose.ymlについて
+version: '3.8'                              # docker-composeファイルのバージョンを指定（機能や構文がバージョンによって異なるため明記）(必須)
+
+services:                                   # Dockerコンテナとして動かす複数のサービス（アプリケーションやデータベースなど）を定義するセクション(必須)
+  nodejs:                                   # サービス名を指定(任意の名前)。コンテナ間でネットワーク接続を行う際のホスト名としても使われる(必須)
+    build: ./nodejs                         # 指定したディレクトリ（./nodejs）にある Dockerfile を元にDockerイメージをビルド(必須)
+    container_name: nodejs-container        # 起動するコンテナに付ける名前を指定(指定しない場合、ランダムな名前がつけられる)
+    ports:                                  # ホスト側とコンテナ側のポートをマッピング (必須)
+      - "3000:3000"
+    depends_on:                             # 依存関係のあるサービスが先に起動される順序を指定
+      - mysql
+
+  mysql:
+    build: ./mysql
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_management
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-container
+    environment:
+      PMA_HOST: mysql                       # MySQLサービス名を指定
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"                           # ホストの8080ポートをphpMyAdminの80番にマッピング
+    depends_on:
+      - mysql
+
+# データ永続化が必要の場合：volumesを設定　-> データベースやファイル保存が必要な場合。
+# ネットワークが必要：networksを設定 -> コンテナ間の通信が複雑な場合や独立したネットワークを構築したい場合。
+# 環境変数が必要：environmentを設定 -> データベース接続情報やAPIキーなどを管理する場合。

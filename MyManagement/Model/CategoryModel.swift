@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable, Identifiable {
+struct Category: Identifiable {
     var category_id: Int
     var iconImageName: String
     var hex_code: String

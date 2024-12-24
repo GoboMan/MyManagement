@@ -7,21 +7,36 @@
 
 import Foundation
 
-struct Goal: Codable, Identifiable {
+struct Goal: Identifiable {
     var goal_id: Int
     var name: String
     var subGoals: [SubGoal]?
+    var schedules: [Schedule]?
     var due_date: Date
     
     var id: Int {
         return goal_id
     }
     
-    init(goal_id: Int, name: String, subGoals: [SubGoal]? = nil, due_date: Date) {
+    init(goal_id: Int, name: String, subGoals: [SubGoal]? = nil, schedules: [Schedule]? = nil, due_date: Date) {
         self.goal_id = goal_id
         self.name = name
         self.subGoals = subGoals
+        self.schedules = schedules
         self.due_date = due_date
+    }
+    
+    func calcTotalTime() -> Int {
+        var total = 0
+        guard let schedules = self.schedules else {
+            return 0
+        }
+        
+        for schedule in schedules {
+            let difference = schedule.end_at.timeIntervalSince(schedule.start_at)
+            total += Int(difference)
+        }
+        return total
     }
     
     func calcAveragePercentage() -> Int {
@@ -32,7 +47,7 @@ struct Goal: Codable, Identifiable {
         }
         
         for subGoal in subGoals {
-            total += subGoal.achievementPercentage
+            total += Int(subGoal.achievementPercentage())
         }
         
         let averagePercentage = total / subGoals.count

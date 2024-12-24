@@ -11,12 +11,14 @@ struct ContentView: View {
     var goals: [Goal]
     var schedules: [Schedule]
     var body: some View {
-        TabView {
-            Tab("Schedule", systemImage: "calendar") {
-                ScheduleHome(schedules: schedules)
-            }
-            Tab("Goal", systemImage: "flag.checkered") {
-                GoalHome(goals: goals)
+        VStack(spacing: 0) {
+            TabView {
+                Tab("Schedule", systemImage: "calendar") {
+                    ScheduleHome(schedules: schedules)
+                }
+                Tab("Goal", systemImage: "flag.checkered") {
+                    GoalHome(goals: goals)
+                }
             }
         }
     }
@@ -32,18 +34,15 @@ struct ContentView: View {
             subGoals: [
                 SubGoal(
                     subGoal_id: 1,
-                    name: "Complete design of UI",
-                    achievementPercentage: 54
+                    name: "Complete design of UI"
                 ),
                 SubGoal(
                     subGoal_id: 2,
-                    name: "Coding",
-                    achievementPercentage: 80
+                    name: "Coding"
                 ),
                 SubGoal(
                     subGoal_id: 3,
-                    name: "Test",
-                    achievementPercentage: 90
+                    name: "Test"
                 )
             ],
             due_date: date
@@ -54,18 +53,15 @@ struct ContentView: View {
             subGoals: [
                 SubGoal(
                     subGoal_id: 4,
-                    name: "Lambda",
-                    achievementPercentage: 54
+                    name: "Lambda"
                 ),
                 SubGoal(
                     subGoal_id: 5,
-                    name: "EC2",
-                    achievementPercentage: 0
+                    name: "EC2"
                 ),
                 SubGoal(
                     subGoal_id: 6,
-                    name: "CloudFront",
-                    achievementPercentage: 0
+                    name: "CloudFront"
                 )
             ],
             due_date: date

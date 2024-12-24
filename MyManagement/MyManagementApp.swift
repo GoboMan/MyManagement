@@ -11,9 +11,9 @@ struct MyManagementApp: App {
                 goal_id: 1,
                 name: "Release iOS app",
                 subGoals: [
-                    SubGoal(subGoal_id: 1, name: "Complete design of UI", achievementPercentage: 54),
-                    SubGoal(subGoal_id: 2, name: "Coding", achievementPercentage: 80),
-                    SubGoal(subGoal_id: 3, name: "Test", achievementPercentage: 90)
+                    SubGoal(subGoal_id: 1, name: "Complete design of UI"),
+                    SubGoal(subGoal_id: 2, name: "Coding"),
+                    SubGoal(subGoal_id: 3, name: "Test"),
                 ],
                 due_date: date
             ),
@@ -21,9 +21,9 @@ struct MyManagementApp: App {
                 goal_id: 2,
                 name: "Master AWS Lambda",
                 subGoals: [
-                    SubGoal(subGoal_id: 4, name: "Lambda", achievementPercentage: 54),
-                    SubGoal(subGoal_id: 5, name: "EC2", achievementPercentage: 0),
-                    SubGoal(subGoal_id: 6, name: "CloudFront", achievementPercentage: 0)
+                    SubGoal(subGoal_id: 4, name: "Lambda"),
+                    SubGoal(subGoal_id: 5, name: "EC2"),
+                    SubGoal(subGoal_id: 6, name: "CloudFront")
                 ],
                 due_date: date
             )

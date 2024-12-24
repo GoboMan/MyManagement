@@ -6,14 +6,64 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		85AEF2032D11470900FC0395 /* memo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 85AEF2022D11470200FC0395 /* memo.txt */; };
+		85AEF2812D114AA500FC0395 /* db_design.txt in Resources */ = {isa = PBXBuildFile; fileRef = 85AEF2472D114AA500FC0395 /* db_design.txt */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		85A59B9E2CFFC2B40066798C /* MyManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		85AEF2022D11470200FC0395 /* memo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = memo.txt; sourceTree = "<group>"; };
+		85AEF2042D114A9500FC0395 /* docker-compose.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "docker-compose.yml"; sourceTree = "<group>"; };
+		85AEF2472D114AA500FC0395 /* db_design.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = db_design.txt; sourceTree = "<group>"; };
+		85E181592D1A65C30063E184 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		85AEEED72D0F1E7000FC0395 /* Exceptions for "MyManagement" folder in "MyManagement" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ViewModel/GoalsViewModel.swift,
+			);
+			target = 85A59B9D2CFFC2B40066798C /* MyManagement */;
+		};
+		85AEEFDC2D112F8000FC0395 /* Exceptions for "Nodejs" folder in "MyManagement" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				package.json,
+				src/app.js,
+				src/controllers/goalControllers.js,
+				src/routes/userRoutes.js,
+			);
+			target = 85A59B9D2CFFC2B40066798C /* MyManagement */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		85A59BA02CFFC2B40066798C /* MyManagement */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				85AEEED72D0F1E7000FC0395 /* Exceptions for "MyManagement" folder in "MyManagement" target */,
+			);
 			path = MyManagement;
+			sourceTree = "<group>";
+		};
+		85AEEF562D112D3000FC0395 /* Nodejs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				85AEEFDC2D112F8000FC0395 /* Exceptions for "Nodejs" folder in "MyManagement" target */,
+			);
+			path = Nodejs;
+			sourceTree = "<group>";
+		};
+		85AEF0E72D113F4A00FC0395 /* Mysql */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Mysql;
+			sourceTree = "<group>";
+		};
+		85AEF1752D11419400FC0395 /* Phpmyadmin */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Phpmyadmin;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,8 +82,15 @@
 		85A59B952CFFC2B40066798C = {
 			isa = PBXGroup;
 			children = (
+				85E181592D1A65C30063E184 /* .gitignore */,
 				85A59BA02CFFC2B40066798C /* MyManagement */,
+				85AEEF562D112D3000FC0395 /* Nodejs */,
+				85AEF1752D11419400FC0395 /* Phpmyadmin */,
+				85AEF0E72D113F4A00FC0395 /* Mysql */,
 				85A59B9F2CFFC2B40066798C /* Products */,
+				85AEF2042D114A9500FC0395 /* docker-compose.yml */,
+				85AEF2022D11470200FC0395 /* memo.txt */,
+				85AEF2472D114AA500FC0395 /* db_design.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +119,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				85A59BA02CFFC2B40066798C /* MyManagement */,
+				85AEEF562D112D3000FC0395 /* Nodejs */,
+				85AEF0E72D113F4A00FC0395 /* Mysql */,
+				85AEF1752D11419400FC0395 /* Phpmyadmin */,
 			);
 			name = MyManagement;
 			packageProductDependencies = (
@@ -78,7 +138,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					85A59B9D2CFFC2B40066798C = {
 						CreatedOnToolsVersion = 16.1;
@@ -109,6 +169,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85AEF2812D114AA500FC0395 /* db_design.txt in Resources */,
+				85AEF2032D11470900FC0395 /* memo.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +221,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -220,6 +283,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -247,6 +311,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyManagement/MyManagement.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MyManagement/Preview Content\"";
 				DEVELOPMENT_TEAM = 8M9PTQG6V7;
 				ENABLE_PREVIEWS = YES;
@@ -285,6 +350,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyManagement/MyManagement.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MyManagement/Preview Content\"";
 				DEVELOPMENT_TEAM = 8M9PTQG6V7;
 				ENABLE_PREVIEWS = YES;

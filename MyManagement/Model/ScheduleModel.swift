@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Schedule: Codable, Identifiable {
+struct Schedule: Identifiable {
     var schedule_id: Int
     var goal: Goal
     var todos: [Todo]

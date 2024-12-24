@@ -4,72 +4,70 @@
 user
 {
     user_id,                bigint, ai, pk                  # ユーザー
-    username,               varchar, 32,                    # ユーザーネーム
-    email,                  email,                          # メールアドレス
-    password,               varchar, 64,                    # パスワード
-    profile_pic,            url,                            # プロフィール写真
+    username,               varchar, 32, null               # ユーザーネーム
+    apple_user_identifier,  varchar, 64, null               # sign in with appleで発行されるid(null許容。システム側で両方nullは不可にする。)
+    email,                  varchar, 100, uni               # メールアドレス(null許容。システム側で両方nullは不可にする。)
+    password,               varchar, 72,                    # パスワード, bcryptでパスワードをハッシュ化。node.jsで行うため、npm install bcryptが必要
+    profile_pic,            varchar, 255                    # プロフィール写真, 開発の時はホストの指定のディレクトリに保存する。そのディレクトリとdocker内のディレクトリをマウントする。
     current_streak,         int,                            # 現在連続日数
     max_streak,             int,                            # 最大連続日数
-    deleted,                del,                            # 削除フラグ
+    deleted,                boolean,                        # 削除フラグ
     created_at,             datetime,                       # 作成日
-    updated_at,             datetime,                       # 更新日
-}
-
-//-----------------------------------------------------------------------------
-//  ユーザー設定
-//-----------------------------------------------------------------------------
-user_settings
-{
-    user_id,                bigint, pk,                     # ユーザー
-    language_id,            int,                            # 言語
-    theme_id,               int,                            # テーマ
+    lan_code,               char, 2,                        # 言語
+    theme_hex_code,         char, 7,                        # テーマの色コード
     notification_enabled,   boolean,                        # 通知
     private_mode,           boolean,                        # 非公開モード, 要承認
 }
 
 //-----------------------------------------------------------------------------
-//  ゴール created
+//  ゴール
 //-----------------------------------------------------------------------------
 goal
 {
     goal_id,                bigint, ai, pk,                 # ゴール
+    user_id,                bigint,                         # ユーザー
     name,                   varchar, 32,                    # ゴール名
     due_date,               datetime,                       # 期限
+    deleted,                boolean,                        # 削除フラグ
+    is_completed,           boolean,                        # 達成ステータス
 }
 
 //-----------------------------------------------------------------------------
-//  サブゴール created
+//  サブゴール
 //-----------------------------------------------------------------------------
 subgoal
 {
     subgoal_id,             bigint, ai, pk,                 # サブゴール
     goal_id,                bigint,                         # ゴール
+    user_id,                bigint,                         # ユーザー
     name,                   varchar, 32,                    # サブゴール名
-    created_at,             datetime,                       # 作成日
-    updated_at,             datetime,                       # 更新日
+    is_completed,           boolean,                        # 達成ステータス
+
 }
 
 //-----------------------------------------------------------------------------
-//  サブゴールのタスク created
+//  サブゴールのタスク
 //-----------------------------------------------------------------------------
 subgoal_task
 {
     task_id,                bigint, ai, pk,                 # タスク
     goal_id,                bigint,                         # ゴール, 後にゴールに属するtaskを一覧表示したいかもなので追加
     subgoal_id,             bigint,                         # サブゴール
+    user_id,                bigint,                         # ユーザー
     name,                   varchar, 32,                    # タスク名
-    isComplete,             bool,                           # 達成フラグ
+    is_completed,           bool,                           # 達成フラグ
     required_time_hours,    double,                         # 達成に必要な時間
 }
 
 //-----------------------------------------------------------------------------
-//  スケジュール created
+//  スケジュール
 //-----------------------------------------------------------------------------
 schedule
 {
     schedule_id,            bigint, ai, pk,                 # スケジュール
     goal_id,                bigint,                         # ゴール
     category_id,            bigint,                         # カテゴリー
+    user_id,                bigint,                         # ユーザー
     name,                   varchar, 32,                    # スケジュール名
     start_at,               datetime,                       # 開始時刻
     end_at,                 datetime,                       # 終了時刻
@@ -83,38 +81,67 @@ tmp_schedule
     tmp_schedule_id,        bigint, ai, pk,                 # テンプレートスケジュール
     goal_id,                bigint,                         # ゴール
     category_id,            bigint,                         # カテゴリー
+    user_id,                bigint,                         # ユーザー
     name,                   varchar, 32,                    # スケジュール名
 }
 
 //-----------------------------------------------------------------------------
-//  todo created
+//  todo
 //-----------------------------------------------------------------------------
 todo
 {
     todo_id,                bigint, ai, pk,                 # todo
+    goal_id,                bigint,                         # ゴール
     schedule_id,            bigint,                         # スケジュール
-    name,                   varchar, 32,                    # todo名
+    user_id,                bigint,                         # ユーザー
+    name,                   varchar, 64,                    # todo名
+    is_completed,           boolean,                        # 達成ステータス
 }
 
 //-----------------------------------------------------------------------------
-//  カテゴリー created
+//  カテゴリー
 //-----------------------------------------------------------------------------
 category
 {
     category_id,            bigint, ai, pk                  # カテゴリー
-    hex_code,               bigint,                         # 色
+    user_id,                bigint,                         # ユーザー
+    hex_code,               char, 7                         # 色
     name,                   varchar, 32,                    # カテゴリー名
+    icon_image_name,        varchar, 32                     # アイコン名
 }
+todo: あとでuser_idを外部キーで入れる。ユーザーごとにカテゴリーを分けることができるようにするため
 
 //-----------------------------------------------------------------------------
-//  カラー created いらないかも
+//  カラー : デフォルトの色を提示するためのもの、他はカスタム（カスタムの色は保存されない）
 //-----------------------------------------------------------------------------
 color
 {
     color_id,               bigint, ai, pk,                 # カラー
+    user_id,                bigint,                         # ユーザー
     name                    varchar, 32,                    # 色の説明, アカ
-    hex_code,               varchar, 16                     # 色コード
+    hex_code,               char, 7,                        # 色コード
 }
+
+//-----------------------------------------------------------------------------
+//  言語 : ユーザーは個々のマスタから選択する, lan_codeがuser_settingsに入る
+//-----------------------------------------------------------------------------
+language
+{
+    lan_code,               varchar, 10, pk,                # 言語え
+    name,                   varchar, 50,                    # 言語名
+    is_active,              boolean,                        # アクティブフラグ
+}
+
+//-----------------------------------------------------------------------------
+//  デフォルトカラー : デフォルトの色を提示する。ユーザーは一色しか保存できない。カスタムのテーマはuser_settingsに入る
+//-----------------------------------------------------------------------------
+def_color
+{
+    theme_hex_code,         char, 7, pk,                    # 色コード
+    name,                   varchar, 16,                    # テーマカラー名
+}
+
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓未作成↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 //-----------------------------------------------------------------------------
 //  フォローしているユーザー
@@ -127,7 +154,7 @@ following
 }
 
 //-----------------------------------------------------------------------------
-//  リアクション
+//  リクエスト
 //-----------------------------------------------------------------------------
 request
 {
@@ -155,56 +182,10 @@ block
 }
 
 //-----------------------------------------------------------------------------
-//  言語
+//  ユーザー設定
 //-----------------------------------------------------------------------------
-language
+user_settings
 {
-    language_id,            int, pk,                        # 言語
-    code,                   varchar, 5,                     # 言語コード
-    name,                   varchar, 32,                    # 言語名
-    enabled,                bool,                           # 適用フラグ
+    user_id,                bigint, pk,                     # ユーザー
+    
 }
-
-//-----------------------------------------------------------------------------
-//  テーマカラー
-//-----------------------------------------------------------------------------
-theme
-{
-    theme_id,               int,                            # テーマ
-    name,                   varchar, 16,                    # テーマカラー名
-    hex_code,               varchar, 16,                    # 色コード,
-    enabled,                bool,                           # 適用フラグ
-}
-
-json形式（ただのメモ）
-{
-    "schedule_id": 1,
-    "goal": {
-        "goal_id": 1,
-        "name": "be a professional engineer",
-        "due_date": "2025-03-31"
-    },
-    "category": {
-        "category_id": 1,
-        "name": "study",
-        "hex_code": "#0000FF"
-    },
-    "todos": [
-        {
-            "todo_id": 1,
-            "name": "learn aws",
-            "isComplete": false
-        },
-        {
-            "todo_id": 2,
-            "name": "learn Swift",
-            "isComplete": true
-        }
-    ],
-    "name": "programming",
-    "start_at": "2024-12-05T18:00:00",
-    "end_at": "2024-12-05T19:00:00"
-}
-
-
-

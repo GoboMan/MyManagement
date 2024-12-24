@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SubGoalTask: Codable, Identifiable {
+struct SubGoalTask: Identifiable {
     var task_id: Int
     var name: String
     var isComplete: Bool

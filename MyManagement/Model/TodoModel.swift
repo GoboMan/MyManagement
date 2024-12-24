@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo: Codable, Identifiable {
+struct Todo: Identifiable {
     var todo_id: Int
     var name: String
     var isComplete: Bool

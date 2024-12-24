@@ -1,0 +1,30 @@
+json形式（ただのメモ）
+{
+    "schedule_id": 1,
+    "goal": {
+        "goal_id": 1,
+        "name": "be a professional engineer",
+        "due_date": "2025-03-31"
+    },
+    "category": {
+        "category_id": 1,
+        "name": "study",
+        "hex_code": "#0000FF"
+    },
+    "todos": [
+        {
+            "todo_id": 1,
+            "name": "learn aws",
+            "isComplete": false
+        },
+        {
+            "todo_id": 2,
+            "name": "learn Swift",
+            "isComplete": true
+        }
+    ],
+    "name": "programming",
+    "start_at": "2024-12-05T18:00:00",
+    "end_at": "2024-12-05T19:00:00"
+}
+
